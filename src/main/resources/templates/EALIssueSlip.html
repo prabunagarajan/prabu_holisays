@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+.bgOpacity {
+	opacity: 0.1;
+}
+
+.settingOne {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.settingTwo {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.settingThree {
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.settingFour {
+	font-size: 10px;
+	font-weight: normal;
+}
+
+.logowatermark {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 20%;
+	width: 700px;
+	height: 600px;
+	opacity: 0.6;
+	background-image:
+		url('data:image/png;base64,${logoWatermarkEncodedString}');
+	background-repeat: no-repeat;
+	background-position: 50% 0;
+	background-size: 700px;
+	/*
+  background-size: cover;
+  */
+}
+
+.tpwatermark {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 700px;
+	height: 700px;
+	opacity: 0.6;
+	background-image:
+		url('data:image/png;base64,${tpWatermarkEncodedString}');
+	background-repeat: no-repeat;
+	background-position: 50% 0;
+	background-size: 700px;
+}
+
+.date {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	font-size: 12px;
+	font-weight: bold;
+}
+</style>
+</head>
+<!--  <h1 style="font-size: 10px; font-weight: bold;">IESCMS Final
+	Transport Pass</h1> -->
+<body
+	style="font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #000; vertical-align: middle;">
+	<header>
+
+	<!--  <table
+		style="border-collapse: collapse; width: 100%;">
+		<tr>
+			<td>
+				<p
+					style="margin: 0px; font-weight: bold; text-align: left;">IESCMS
+					Final Transport Pass</p>
+			</td>
+		</tr>
+	</table>
+
+	</header> -->
+
+	<table width="100%" cellpadding="5" cellspacing="0" border="1"
+		style="border-collapse: collapse; border-color: #ccc;">
+		<tr>
+			<td>
+				<table width="100%">
+					<tr>
+						<td align="center" width="25%"><img
+							src="data:image/png;base64,${upExciseLogoBase64Content}"
+							width="100" height="100" alt="UP Excise Logo" /></td>
+						<td align="center" width="40%"><h2
+								style="font-size: 16px; font-weight: bold; text-transform: uppercase;">
+								Department of Excise<br /> <span
+									style="font-weight: normal; font-size: 16px;">Uttar
+									Pradesh</span>
+								<!--  <br /> <span
+									style="font-weight: normal; font-size: 16px;"> FL-36
+									.Transport Pass Details</span> -->
+							</h2></td>
+						<td align="center" width="25%">
+							<table>
+								<tr>
+									<td align="center"><img
+										src="data:image/png;base64,${qrCodeBase64Content}" /></td>
+								</tr>
+								<tr>
+									<td><b><span
+											style="font-size: 10px; font-weight: bold;">Slip NO:${generatedNumber}</span></b></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table width="100%" cellpadding="2" cellspacing="0" border="1"
+					style="border-collapse: collapse; border-color: #ccc; margin-top: 5px;">
+					<tr>
+						<td align="center" style="font-size: 12px; font-weight: bold;">EAL Issue Slip</td>
+					</tr>
+				</table>
+				<table width="100%" cellpadding="2" cellspacing="0" border="1"
+					style="border-collapse: collapse; border-color: #ccc; margin-top: 5px;">
+					<tr>
+						<td width="20%" class="settingThree">Application Date</td>
+						<td width="30%">${application_date}</td>
+						<td width="20%" class="settingThree">Financial Year</td>
+						<td width="30%">${financial_year}</td>
+					</tr>
+					<tr>
+						<!--<td class="settingThree">Financial Year</td>
+						<td class="settingFour">${Financial_year}</td>-->
+						<!--<td class="settingThree">Application No.</td>
+						<td width="30%">${requested_appln_no}</td>-->
+					</tr>
+				</table>
+				<table width="100%" cellpadding="2" cellspacing="0" border="1"
+					style="border-collapse: collapse; border-color: #ccc; margin-top: 5px;">
+					<tr>
+						<td colspan="4" style="background: #f4f4f4;" class="settingTwo" align="center" >Applicant Details</td>
+						<td colspan="2" style="background: #f4f4f4;" class="settingTwo"></td>
+					</tr>
+					<tr>
+						<td width="20%" class="settingThree">Entity type</td>
+						<td width="30%">${entity_type}</td>
+						<td width="20%" class="settingThree">Entity Name</td>
+						<td width="30%">${entity_name}</td>
+					</tr>
+										<tr>
+						<td width="20%" class="settingThree">License type</td>
+						<td width="30%">${license_type}</td>
+						<td width="20%" class="settingThree">License number</td>
+						<td width="30%">${license_no}</td>
+						
+					</tr>
+					
+															<tr>
+						<td width="20%" class="settingThree">Entity Address</td>
+						<td width="30%">${entity_address}</td>
+					<!--	<td width="20%" class="settingThree">License number</td>
+						<td width="30%">${entity_type}</td>-->
+						
+					</tr>
+					
+					<!--<tr>
+						<td width="20%" class="settingThree"></td>
+						<td width="30%"></td>
+						<td width="20%" class="settingThree">Unit Name</td>
+						<td width="30%">${entity_name}</td>
+					</tr>-->
+					
+				</table>
+				<table width="100%" cellpadding="2" cellspacing="0" border="1"
+					style="border-collapse: collapse; border-color: #ccc; margin-top: 5px;">
+					<tr>
+						<td colspan="4" align="center"
+							style="font-size: 12px; font-weight: bold; background: #f4f4f4;">
+							Bottling Production Plan Details</td>
+					</tr>
+					<tr>
+						<td width="20%" class="settingThree">Bottling Plan ID</td>
+						<td width="30%">${requested_appln_no}</td>
+						<td width="20%" class="settingThree">Date of Packaging</td>
+						<td width="30%">${date_of_packaging}</td>
+					</tr>
+					<tr>
+						<td width="20%" class="settingThree">Liquor Type</td>
+						<td width="30%">${liquor_type}</td>
+						<td width="20%" class="settingThree">Liquor Sub Type</td>
+						<td width="30%">${liquor_sub_type}</td>
+					</tr>
+					<tr>
+						<td width="20%" class="settingThree">Package Size</td>
+						<td width="30%">${packaging_size}</td>
+						<td width="20%" class="settingThree">Brand Name</td>
+						<td width="30%">${brand_name}</td>
+					</tr>
+					<tr>
+					<!--	<td width="20%" class="settingThree">Strength</td>
+						<td width="30%">${Strength}</td>
+						<td width="20%" class="settingThree">EDP Category</td>
+						<td width="30%">${EDP Category}</td>-->
+
+					</tr>
+					<tr>
+					  <!--  <td width="20%" class="settingThree">Package Size</td>
+						<td width="30%">${Package--> <!--Size}</td>
+						<td width="20%" class="settingThree">Tare Weight</td>
+						<td width="30%">${tare_weight_Qtls}</td>-->
+					</tr>
+					<tr>
+					    <!--<td width="20%" class="settingThree">Net Weight</td>
+						<td width="30%">${net_weight_Qtls}</td>
+						<td width="20%" class="settingThree">GPS ID</td>
+						<td width="30%">${GPS_device_id}</td>-->
+					</tr>
+					<tr>
+					<!--<td width="20%" class="settingThree">Remarks</td>
+						<td width="30%">${Remarks}</td>
+						<td width="20%" class="settingThree">Code type</td>
+						<td width="30%">${code_type}</td>-->
+					</tr>
+				</table>
+				<table width="100%" cellpadding="2" cellspacing="0" border="1"
+					style="border-collapse: collapse; border-color: #ccc; margin-top: 5px;">
+					<tr>
+						<td colspan="7" align="center" class="settingTwo"
+							style="background: #f4f4f4;">Code Type Details</td>
+					</tr>
+					<tr>
+					    <td align="center" class="settingThree">Code Type</td>
+					  <!--   <td align="center" class="settingThree">Production Line</td>-->
+						<td align="center" class="settingThree">Carton size</td>
+						<td align="center" class="settingThree">Planned No. of Cases</td>
+						<td align="center" class="settingThree">Planned No. of Bottles</td>
+						<td align="center" class="settingThree">Planned No.of Rolls</td>
+						<!--<td align="center" class="settingThree">Request No.of Rolls</td>-->
+						<td align="center" class="settingThree">Status</td>
+					</tr>
+					<!--<tr>
+					    <td align="center" class="settingFour">${carton_size}</td>
+						<td align="center" class="settingFour">${no_of_barcode}</td>
+						<td align="center" class="settingFour">${no_of_qrcode}</td>
+						<td align="center" class="settingFour">${no_of_roll}</td>
+						<td align="center" class="settingFour">${no_barcode_received}</td>
+						<td align="center" class="settingFour">${no_qrcode_received}</td>
+						<td align="center" class="settingFour">${no_roll_received}</td>
+					</tr>-->
+					${lineItems} 
+				</table>
+
+			<!--  <table width="100%" cellpadding="1" cellspacing="0" border="1"
+					style="border-collapse: collapse; border-color: #ccc; margin-top: 5px;">
+
+					<tr>
+						<td align="center" class="settingThree">S.No</td>
+						<td align="center" class="settingThree">Brand</td>
+						<td align="center" class="settingThree">Liquor Type</td>
+						<td align="center" class="settingThree">Batch No</td>
+						<td align="center" class="settingThree">Packaging Size</td>
+						<td align="center" class="settingThree">Packaging Type</td>
+						<td align="center" class="settingThree">Strength</td>
+						<td align="center" class="settingThree">No of Cases/ Monocartons Dispatched</td>
+						<td align="center" class="settingThree">No of Bottles Dispatched</td>
+						<td align="center" class="settingThree">Total <br /> B.L
+						</td>
+					</tr>
+					${indentLineItems}
+					<tr>
+						<td style="text-align: right;" class="settingThree" colspan="7">Dispatched</td>
+						<td align="center" class="settingFour">${totaldis}</td>
+						<td align="center" class="settingFour">${totaldisbot}</td>
+						<td align="center" class="settingFour">${totalBulkLitres}</td>
+					</tr>
+				</table> -->	
+
+				<table width="100%" cellpadding="0" cellspacing="0" border="0"
+					style="border-collapse: collapse; border-color: #ccc; margin-top: -5px;">
+					<tbody>
+						<!-- <tr>
+							<td align="center" class="settingThree"><img
+								src="data:image/png;base64,${tpDisclaimerBase64Content}" /></td>
+						</tr> -->
+						<div class="footer">
+							<p>
+							
+							<p>IESCMS Bondwarehouse Transport Pass ${currentDate}</p>
+								<!-- <table width="100%" border="0" cellspacing="0" cellpadding="0">
+									${signature}
+
+									<td align="right" style="font-size: 12px; font-weight: normal;">Excise
+										Inspector<br /> <br /> <br /> Incharge <br /> Dept of
+										Excise
+									</td>
+
+								</table>  -->
+							</p>
+						</div>
+
+						<div class="logowatermark" />
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<!--  <div class="footer" style="position: fixed; left: 0; bottom: 0; width: 100%; color: black; text-align: left;">
+    		<p>IESCMS Bondwarehouse  Transport Pass ${currentDate}</p>
+</div> -->
+</body>
+</html>

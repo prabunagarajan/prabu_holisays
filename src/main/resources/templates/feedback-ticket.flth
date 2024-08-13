@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UMANG</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+        font-family: 'Roboto', sans-serif;
+    }
+    </style>
+</head>
+
+<body bgcolor="#fff">
+    <center>
+        <table align="left" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="text-align: left;">
+            <tr>
+                <td colspan="0" rowspan="0">
+                    <table align="left" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+                       
+                        <tr>
+                            <td style="padding: 15px;" align="left">
+                                <table width="700">
+                                    <tr>
+                                        <td colspan="2">
+                                            <p style="line-height: 24px;font-size:  14px;text-align:  justify;">
+                                                Hello ${customerName},
+                                                
+                                                <br/>
+                                                <br>
+                                                   Your issue ${ticketID} ${timeStamp} from ${toId} for the ${licenseNo}.
+                                                   You recently reached out to us regarding ${category}, ${subCategory} ${issue}
+                                                   which was ${ticketStatus} on ${resolveDate}. We would love to hear 
+                                                   about your experience with our customer service.
+                                                </br>   
+												</br>Can you please take a moment to reply to this simple survey? 
+												 Your feedback will help us assist you better!
+                                                </br>${surveyQuestion}
+                                                <br> Thanks,
+                                                <br>Department of Excise, Government of Uttar Pradesh
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                </td>
+            </tr>
+            </table>
+            </td>
+            </tr>
+        </table>
+        </td>
+        </tr>
+        </table>
+    </center>
+</body>
+
+</html>
