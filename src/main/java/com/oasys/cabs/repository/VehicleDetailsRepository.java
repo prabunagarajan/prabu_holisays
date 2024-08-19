@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.oasys.cabs.entity.VehicleDetailsEntity;
+import com.oasys.cabs.requestDTO.VehicleNextDateDTO;
 
 public interface VehicleDetailsRepository extends JpaRepository<VehicleDetailsEntity, Long> {
 
@@ -18,5 +19,14 @@ public interface VehicleDetailsRepository extends JpaRepository<VehicleDetailsEn
 	List<VehicleDetailsEntity> findAllByOrderByIdDesc();
 
 	List<VehicleDetailsEntity> findByStatusOrderByModifiedDateDesc(Boolean true1);
+
+	@Query(value = "SELECT \r\n" + "    vehicle_number AS vehicleNumber,\r\n" + "    CASE \r\n"
+			+ "        WHEN insurance_date = 'LTT' THEN 'LTT' \r\n"
+			+ "        ELSE DATEDIFF(insurance_date, CURDATE()) \r\n" + "    END AS nextInsuranceDate,\r\n"
+			+ "    CASE \r\n" + "        WHEN tax_date = 'LTT' THEN 'LTT' \r\n"
+			+ "        ELSE DATEDIFF(tax_date, CURDATE()) \r\n" + "    END AS nextTaxDate,\r\n" + "    CASE \r\n"
+			+ "        WHEN fc_date = 'LTT' THEN 'LTT' \r\n" + "        ELSE DATEDIFF(fc_date, CURDATE()) \r\n"
+			+ "    END AS nextFcDate\r\n" + "FROM \r\n" + "    vehicle_details vd;", nativeQuery = true)
+	List<VehicleNextDateDTO> getNextDate();
 
 }

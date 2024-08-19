@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "driver_details")
-@Audited(withModifiedFlag = true)
+//@Audited(withModifiedFlag = true)
 @NoArgsConstructor
 public class DriverDetailsEntity extends Trackable {
 
@@ -32,9 +32,9 @@ public class DriverDetailsEntity extends Trackable {
 	 */
 	private static final long serialVersionUID = -5009506116207889680L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id;
 
 	private String name;
 

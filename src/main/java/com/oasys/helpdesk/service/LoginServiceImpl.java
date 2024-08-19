@@ -157,9 +157,9 @@ public class LoginServiceImpl implements LoginService{
         roles.add(Constant.HELPDESK_ADMIN);
         roles.add(Constant.GRIEVANCE_ADMIN);
         roles.add(Constant.FIELD_ADMIN);
-		if (authenticationDTO.getRoleCodes().stream().anyMatch(r -> roles.contains(r))) {
-			jwt = redisUtil.getValue(authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId());
-		}
+//		if (authenticationDTO.getRoleCodes().stream().anyMatch(r -> roles.contains(r))) {
+//			jwt = redisUtil.getValue(authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId());
+//		}
          
 		if (org.apache.commons.lang3.StringUtils.isBlank(jwt) || !tokenProvider.validateToken(jwt)) {
 			jwt = tokenProvider.generateToken(authenticationDTO);
@@ -173,8 +173,8 @@ public class LoginServiceImpl implements LoginService{
   		if(loginHistoryList!=null && !loginHistoryList.isEmpty() && loginHistoryList.size() > 1){
   			finalMap.put("lastLoginTime",loginHistoryList.get(1).getLoginTime().toString());
   		}
-		redisUtil.set(authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId(), jwt,
-				sessionExpiryTimeInSeconds);
+//		redisUtil.set(authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId(), jwt,
+//				sessionExpiryTimeInSeconds);
 		log.info("========token inserted======={}", LocalDateTime.now());
         //generate token finish
 		genericResponse = Library.getSuccessfulResponse(finalMap, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),

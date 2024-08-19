@@ -13,6 +13,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.envers.Audited;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.oasys.helpdesk.conf.Trackable;
 
 import lombok.Data;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "vehicle_details")
-@Audited(withModifiedFlag = true)
+//@Audited(withModifiedFlag = true)
 @NoArgsConstructor
 public class VehicleDetailsEntity extends Trackable {
 
@@ -49,14 +50,20 @@ public class VehicleDetailsEntity extends Trackable {
 	    private String remarks;
 
 	    @Column(name = "insurance_date")
-	    @Temporal(TemporalType.TIMESTAMP)
-	    private Date insuranceDate;
+	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	    private String insuranceDate;
 
 	    @Column(name = "tax_date")
-	    @Temporal(TemporalType.TIMESTAMP)
-	    private Date taxDate;
+	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	    private String taxDate;
 
 	    @Column(name = "fc_date")
-	    @Temporal(TemporalType.TIMESTAMP)
-	    private Date fcDate;
+	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+//	    @Temporal(TemporalType.TIMESTAMP)
+	    private String fcDate;
+	    
+	    @Column(name = "polution_date")
+	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+//	    @Temporal(TemporalType.TIMESTAMP)
+	    private String polutionDate;
 }

@@ -2,15 +2,16 @@ package com.oasys.cabs.service;
 
 import javax.validation.Valid;
 
-import com.oasys.cabs.requestDTO.VehicleDetailsRequestDTO;
+import com.oasys.cabs.requestDTO.TripDetailsRequestDTO;
 import com.oasys.helpdesk.dto.PaginationRequestDTO;
 import com.oasys.helpdesk.utility.GenericResponse;
 
-public interface VehicleDetailsService {
+public interface TripDetailsService {
 
-	GenericResponse add(VehicleDetailsRequestDTO vehicleDetailsRequestDTO);
 
-	GenericResponse update(VehicleDetailsRequestDTO vehicleDetailsRequestDTO);
+	GenericResponse add(TripDetailsRequestDTO tripDetailsRequestDTO);
+
+	GenericResponse update(TripDetailsRequestDTO tripDetailsRequestDTO);
 
 	GenericResponse getById(Long id);
 
@@ -18,7 +19,7 @@ public interface VehicleDetailsService {
 
 	GenericResponse getsubPagesearchNewByFilter(@Valid PaginationRequestDTO paginationRequestDTO);
 
-	GenericResponse getAllActive();
+	GenericResponse getPendingList();
 
-	GenericResponse getNextDate();
+	GenericResponse getLastRecordByVehicleNumber(String vehicleNumber);
 }

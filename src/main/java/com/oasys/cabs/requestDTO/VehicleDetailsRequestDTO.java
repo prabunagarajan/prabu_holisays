@@ -18,7 +18,8 @@ public class VehicleDetailsRequestDTO {
 	    private String vehicleColor;
 	    private Boolean status;
 	    private String remarks;
-	    private Date insuranceDate;
-	    private Date taxDate;
-	    private Date fcDate;
+	    private String insuranceDate;
+	    private String taxDate;
+	    private String fcDate;
+	    private String polutionDate;
 }

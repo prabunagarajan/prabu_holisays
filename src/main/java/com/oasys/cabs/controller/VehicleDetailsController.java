@@ -79,4 +79,11 @@ public class VehicleDetailsController {
 		return new ResponseEntity<>(vehicleDetailsService.getAllActive(), ResponseHeaderUtility.HttpHeadersConfig(),
 				HttpStatus.OK);
 	}
+	
+	@GetMapping("/getNextDate")
+	@ApiOperation(value = "This api is to get all Vehicle list", notes = "Returns HTTP 200 if successful get the record")
+	public ResponseEntity<Object> getNextDate() {
+		return new ResponseEntity<>(vehicleDetailsService.getNextDate(), ResponseHeaderUtility.HttpHeadersConfig(),
+				HttpStatus.OK);
+	}
 }

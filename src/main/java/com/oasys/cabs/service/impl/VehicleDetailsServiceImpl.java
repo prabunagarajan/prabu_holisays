@@ -28,6 +28,7 @@ import com.oasys.cabs.entity.VehicleDetailsEntity;
 import com.oasys.cabs.repository.VehicleDetailsRepository;
 import com.oasys.cabs.requestDTO.DriverDetailsRequestDTO;
 import com.oasys.cabs.requestDTO.VehicleDetailsRequestDTO;
+import com.oasys.cabs.requestDTO.VehicleNextDateDTO;
 import com.oasys.cabs.service.VehicleDetailsService;
 import com.oasys.helpdesk.conf.exception.InvalidDataValidation;
 import com.oasys.helpdesk.constant.ErrorCode;
@@ -66,6 +67,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 			vehicleDetailsEntity.setInsuranceDate(vehicleDetailsRequestDTO.getInsuranceDate());
 			vehicleDetailsEntity.setFcDate(vehicleDetailsRequestDTO.getFcDate());
 			vehicleDetailsEntity.setTaxDate(vehicleDetailsRequestDTO.getTaxDate());
+			vehicleDetailsEntity.setPolutionDate(vehicleDetailsRequestDTO.getPolutionDate());
 
 			return Library.getSuccessfulResponse(vehicleDetailsRepository.save(vehicleDetailsEntity),
 					ErrorCode.CREATED.getErrorCode(), ErrorMessages.RECORED_CREATED);
@@ -99,6 +101,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 		vehicleDetailsEntity.setFcDate(vehicleDetailsRequestDTO.getFcDate());
 		vehicleDetailsEntity.setTaxDate(vehicleDetailsRequestDTO.getTaxDate());
 		vehicleDetailsEntity.setModifiedDate(new Date());
+		vehicleDetailsEntity.setPolutionDate(vehicleDetailsRequestDTO.getPolutionDate());
 		vehicleDetailsRepository.save(vehicleDetailsEntity);
 		return Library.getSuccessfulResponse(vehicleDetailsEntity, ErrorCode.CREATED.getErrorCode(), ErrorMessages.RECORED_UPDATED);
 	}
@@ -291,6 +294,16 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 					ResponseMessageConstant.NO_RECORD_FOUND.getMessage());
 		}
 		return Library.getSuccessfulResponse(activeDriverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
+				ErrorMessages.RECORED_FOUND);
+	}
+	
+
+	public GenericResponse getNextDate() {
+		List<VehicleNextDateDTO> DepList = vehicleDetailsRepository.getNextDate();
+		if (CollectionUtils.isEmpty(DepList)) {
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), ErrorMessages.NO_RECORD_FOUND);
+		}
+		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
 	}
 	

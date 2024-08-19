@@ -152,17 +152,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				if (authenticationDTO == null || authenticationDTO.getUserId() == null) {
 					throw new InvalidTokenException("Token not allowed");
 				}
-				if (redisUtil.hasKey(
-						authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId())) {
-					redisUtil.expire(
-							authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId(),
-							sessionExpiryTimeInSeconds);
-					log.info("========token updated======={}, token : {}", LocalDateTime.now(), redisUtil.getValue(
-							authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId()));
-				} else {
-					log.info("========token not found ======={}" + LocalDateTime.now());
-					throw new InvalidTokenException("Token Expired");
-				}
+//				if (redisUtil.hasKey(
+//						authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId())) {
+//					redisUtil.expire(
+//							authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId(),
+//							sessionExpiryTimeInSeconds);
+//					log.info("========token updated======={}, token : {}", LocalDateTime.now(), redisUtil.getValue(
+//							authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId()));
+//				} else {
+//					log.info("========token not found ======={}" + LocalDateTime.now());
+//					throw new InvalidTokenException("Token Expired");
+//				}
 				if (authenticationDTO != null && authenticationDTO.getUserId() != null) {
 					authenticationDTO.setToken("Bearer ".concat(jwt));
 					Authentication authentication = new UsernamePasswordAuthenticationToken(authenticationDTO,

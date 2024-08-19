@@ -397,7 +397,7 @@ public class UserServiceImpl implements UserService {
 		oldPasswordEntity.setUserId(userEntity.getId());
 		oldPasswordEntity.setUpdatedDate(LocalDateTime.now());
 		oldPasswordRepository.save(oldPasswordEntity);
-		redisUtil.delete(userEntity.getEmailId() + Constant.UNDERSCORE + userEntity.getEmployeeId());
+//		redisUtil.delete(userEntity.getEmailId() + Constant.UNDERSCORE + userEntity.getEmployeeId());
 		log.info("token deleted for user : {}", userEntity.getEmailId());
 		return Library.getSuccessfulResponse(userEntity, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.CHANGE_PASSWORD);
@@ -1053,7 +1053,7 @@ public class UserServiceImpl implements UserService {
 					baseResponse = Library.getSuccessfulResponse(null,
 							ErrorCode.PASSWORD_UPDATED_SUCCESSFULLY.getCode(),
 							ResponseMessageConstant.PASSWORD_UPDATED_SUCCESSFULLY.getMessage());
-					redisUtil.delete(userEntity.getEmailId() + Constant.UNDERSCORE + userEntity.getEmployeeId());
+//					redisUtil.delete(userEntity.getEmailId() + Constant.UNDERSCORE + userEntity.getEmployeeId());
 					log.info("token deleted for user : {}", userEntity.getEmailId());
 				}
 			}
@@ -1093,7 +1093,7 @@ public class UserServiceImpl implements UserService {
 		loginHistory.setLogoutTime(LocalDateTime.now());
 		loginHistoryRepository.save(loginHistory);
 
-		redisUtil.delete(authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId());
+//		redisUtil.delete(authenticationDTO.getEmail() + Constant.UNDERSCORE + authenticationDTO.getEmployeeId());
 		return Library.getSuccessfulResponse(null, ErrorCode.SUCCESS_RESPONSE.getCode(),
 				ErrorMessages.USER_LOGGED_OUT_SUCCESSFULLY);
 	}
