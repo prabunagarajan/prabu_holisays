@@ -52,8 +52,6 @@ import com.oasys.posasset.constant.ApprovalStatus;
 import com.oasys.posasset.entity.EALRequestAECEntity;
 import com.oasys.posasset.entity.EALRequestEntity;
 import com.oasys.posasset.entity.EALRequestLogAECEntity;
-import com.oasys.posasset.repository.EALRequestAECRepository;
-import com.oasys.posasset.service.WorkFlowService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -74,12 +72,12 @@ public class EalWastageServiceImpl implements EalWastageService {
 
 	@Autowired
 	private EalWastageLogRepository ealWastageLogRepository;
-
-	@Autowired
-	private WorkFlowService workFlowService;
-	
-	@Autowired
-	private EALRequestAECRepository ealRequestAECRepository;
+//
+//	@Autowired
+//	private WorkFlowService workFlowService;
+//	
+//	@Autowired
+//	private EALRequestAECRepository ealRequestAECRepository;
 
 	@Override
 	public GenericResponse getWastageById(Long id) {
@@ -117,16 +115,16 @@ public class EalWastageServiceImpl implements EalWastageService {
 						"Already Requested Wastage Not Yet Approve");
 			}
 			
-			List<EALRequestAECEntity> ealbottling = ealRequestAECRepository
-					.getByRequestedapplnNo(wastageRequest.getBottlingPlanId());
+//			List<EALRequestAECEntity> ealbottling = ealRequestAECRepository
+//					.getByRequestedapplnNo(wastageRequest.getBottlingPlanId());
 			
-			if(ealbottling.isEmpty()) {
-				return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
-						"Selected Bottling Number has not been registered in the bottling plan yet.");
-			}else if (!ealbottling.isEmpty() && !ealbottling.get(0).getStatus().equals(ApprovalStatus.APPROVED)) {
-				return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
-						"EAL Requested Not Yet Approve For Given Bottling No");
-			}
+//			if(ealbottling.isEmpty()) {
+//				return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+//						"Selected Bottling Number has not been registered in the bottling plan yet.");
+//			}else if (!ealbottling.isEmpty() && !ealbottling.get(0).getStatus().equals(ApprovalStatus.APPROVED)) {
+//				return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+//						"EAL Requested Not Yet Approve For Given Bottling No");
+//			}
 
 			// Map the wastageRequest DTO to EalWastage entity
 			EalWastage ealWastageEntity = new EalWastage();
@@ -190,7 +188,7 @@ public class EalWastageServiceImpl implements EalWastageService {
 				workflowStatusUpdateDto.setModuleNameCode(wastageRequest.getModuleNameCode());
 				workflowStatusUpdateDto.setEvent(wastageRequest.getEvent());
 				workflowStatusUpdateDto.setLevel(wastageRequest.getLevel());
-				workFlowService.callEALWastageWorkFlowService(workflowStatusUpdateDto);
+//				workFlowService.callEALWastageWorkFlowService(workflowStatusUpdateDto);
 			} catch (Exception e) {
 				e.printStackTrace();
 				log.info("EAL Log " + e);
@@ -232,7 +230,7 @@ public class EalWastageServiceImpl implements EalWastageService {
 			workflowStatusUpdateDto.setModuleNameCode(updatedWastageRequestDTO.getModuleNameCode());
 			workflowStatusUpdateDto.setEvent(updatedWastageRequestDTO.getEvent());
 			workflowStatusUpdateDto.setLevel(updatedWastageRequestDTO.getLevel());
-			workFlowService.callEALWastageWorkFlowService(workflowStatusUpdateDto);
+//			workFlowService.callEALWastageWorkFlowService(workflowStatusUpdateDto);
 
 			return Library.getSuccessfulResponse(commonUtil.modalMap(ealWastage, EalWastageDTO.class),
 					ErrorCode.SUCCESS_RESPONSE.getErrorCode(), ErrorMessages.RECORED_UPDATED);

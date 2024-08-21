@@ -20,7 +20,6 @@ import com.oasys.helpdesk.dto.PaginationRequestDTO;
 import com.oasys.helpdesk.dto.WorkflowNotificationDTO;
 import com.oasys.helpdesk.service.WorkflowNotificationService;
 import com.oasys.helpdesk.utility.ResponseHeaderUtility;
-import com.oasys.posasset.dto.EalRequestDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

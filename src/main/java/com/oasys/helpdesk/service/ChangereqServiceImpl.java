@@ -65,12 +65,9 @@ import com.oasys.helpdesk.utility.GenericResponse;
 import com.oasys.helpdesk.utility.Library;
 import com.oasys.helpdesk.utility.RandomUtil;
 import com.oasys.posasset.dto.ApprovalDTO;
-import com.oasys.posasset.dto.Devicelostrequestdto;
-import com.oasys.posasset.dto.EalRequestSummaryCountDTO;
 import com.oasys.posasset.dto.WorkFlowStatusUpdateDTO;
 import com.oasys.posasset.entity.DeviceLostLogEntity;
 import com.oasys.posasset.entity.DeviceReturnLogEntity;
-import com.oasys.posasset.service.WorkFlowService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -87,8 +84,8 @@ public class ChangereqServiceImpl implements ChangerequestService {
 	@Autowired
 	private CommonUtil commonUtil;
 
-	@Autowired
-	WorkFlowService workFlowService;
+//	@Autowired
+//	WorkFlowService workFlowService;
 
 	@Autowired
 	ChangereqMapper changeremapper;

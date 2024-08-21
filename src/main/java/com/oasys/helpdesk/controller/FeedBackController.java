@@ -16,7 +16,6 @@ import com.oasys.helpdesk.dto.FeedBackEntityRequestDTO;
 import com.oasys.helpdesk.service.FeedBackService;
 import com.oasys.helpdesk.utility.GenericResponse;
 import com.oasys.helpdesk.utility.ResponseHeaderUtility;
-import com.oasys.posasset.service.DevicelostService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,8 +36,8 @@ public class FeedBackController {
 	@Autowired
 	private FeedBackService feedBackService;
 	
-	@Autowired
-	private DevicelostService devicelostservice;
+//	@Autowired
+//	private DevicelostService devicelostservice;
 	
 	@PostMapping("/addFeedBack")
 	@ApiOperation(value = "This api is used to add FeedBack", notes = "Returns HTTP 200 if successful get the record")

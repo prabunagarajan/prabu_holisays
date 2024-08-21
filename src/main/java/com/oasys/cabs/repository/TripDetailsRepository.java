@@ -12,7 +12,7 @@ public interface TripDetailsRepository extends JpaRepository<TripDetailsEntity, 
 
 	List<TripDetailsEntity> findAllByOrderByIdDesc();
 
-	@Query(value="select * from trip_details td where pending_amount != 0",nativeQuery = true)
+	@Query(value="select * from trip_details td where pending_amount != 0 order by id desc",nativeQuery = true)
 	List<TripDetailsEntity> getPendingList();
 
 	@Query(value="select * from trip_details td where vehicle_number=:vehicleNumber order by id desc limit 1",nativeQuery = true)

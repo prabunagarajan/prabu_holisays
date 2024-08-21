@@ -17,7 +17,6 @@ import com.oasys.helpdesk.dto.PaginationRequestDTO;
 import com.oasys.helpdesk.dto.SupplierDTO;
 import com.oasys.helpdesk.service.SupplierServiceImpl;
 import com.oasys.helpdesk.utility.ResponseHeaderUtility;
-import com.oasys.posasset.dto.DeviceReturnDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

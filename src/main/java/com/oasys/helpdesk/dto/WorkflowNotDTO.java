@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.oasys.helpdesk.entity.Category;
 import com.oasys.helpdesk.entity.LevelMaster;
 import com.oasys.helpdesk.entity.RoleMaster;
-import com.oasys.posasset.dto.EalRequestMapResponseDTO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

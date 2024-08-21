@@ -26,7 +26,6 @@ import com.oasys.helpdesk.utility.GenericResponse;
 import com.oasys.helpdesk.utility.ResponseHeaderUtility;
 import com.oasys.posasset.dto.ApprovalDTO;
 import com.oasys.posasset.dto.WorkFlowStatusUpdateDTO;
-import com.oasys.posasset.service.WorkFlowService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,8 +46,8 @@ public class ChangeRequestController extends BaseController {
 	@Autowired
 	ChangerequestService changereqservice;
 
-	@Autowired
-	WorkFlowService workFlowService;
+//	@Autowired
+//	WorkFlowService workFlowService;
 
 	@PostMapping("/add")
 	@ApiOperation(value = "This api is used to changereq ticket", notes = "Returns HTTP 200 if successful get the record")

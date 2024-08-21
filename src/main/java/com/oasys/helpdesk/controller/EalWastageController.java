@@ -23,7 +23,6 @@ import com.oasys.helpdesk.utility.GenericResponse;
 import com.oasys.helpdesk.utility.ResponseHeaderUtility;
 import com.oasys.posasset.constant.ApprovalStatus;
 import com.oasys.posasset.dto.WorkFlowStatusUpdateDTO;
-import com.oasys.posasset.service.WorkFlowService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -34,8 +33,8 @@ public class EalWastageController {
 	@Autowired
 	private EalWastageService service;
 
-	@Autowired
-	WorkFlowService workFlowService;
+//	@Autowired
+//	WorkFlowService workFlowService;
 
 	@PostMapping("/list")
 	@ApiOperation(value = "This api is used to get EalWastage records based on search filter", notes = "Returns HTTP 200 if successful get the record")
@@ -91,12 +90,12 @@ public class EalWastageController {
 				HttpStatus.OK);
 	}
 
-	@PostMapping("/updateWastageWorkFlow")
-	@ApiOperation(value = "This api is used for update eal Wastage WorkFlow", notes = "Returns HTTP 200 if successful get the record")
-	public Boolean updateWorkFlowDetails(@RequestBody WorkFlowStatusUpdateDTO workflowStatusUpdateDto)
-			throws RecordNotFoundException, Exception {
-		return workFlowService.updateEALWastageWorkFlowDetails(workflowStatusUpdateDto);
-	}
+//	@PostMapping("/updateWastageWorkFlow")
+//	@ApiOperation(value = "This api is used for update eal Wastage WorkFlow", notes = "Returns HTTP 200 if successful get the record")
+//	public Boolean updateWorkFlowDetails(@RequestBody WorkFlowStatusUpdateDTO workflowStatusUpdateDto)
+//			throws RecordNotFoundException, Exception {
+//		return workFlowService.updateEALWastageWorkFlowDetails(workflowStatusUpdateDto);
+//	}
 	@GetMapping("/getBottelingPlanId")
     @ApiOperation(value = "Get alleal Wastag details", notes = "Returns HTTP 200 if successful")
     public ResponseEntity<GenericResponse> getBottlePlanId(@RequestParam(name ="bottelingPlanId", required = true) String bottelingPlanId) {

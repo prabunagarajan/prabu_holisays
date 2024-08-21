@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oasys.helpdesk.conf.exception.RecordNotFoundException;
 import com.oasys.posasset.dto.WorkFlowStatusUpdateDTO;
-import com.oasys.posasset.service.WorkFlowService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,15 +25,16 @@ import io.swagger.annotations.ApiResponses;
 //@RequestMapping(value = "/helpdeskWorkFlow")
 public class WorkFlowController {
 
-	@Autowired
-	WorkFlowService workFlowService;
+//	@Autowired
+//	WorkFlowService workFlowService;
 
 	@PostMapping("/helpdeskWorkFlow/updateWorkFlow")
 	@ApiOperation(value = "This api is used for bottling repair WorkFLow", notes = "Returns HTTP 200 if successful get the record")
 	public Boolean updateWorkFlowDeviceDetails(@RequestBody WorkFlowStatusUpdateDTO workflowStatusUpdateDto)
 			throws RecordNotFoundException, Exception {
 
-		return workFlowService.updateWorkFlowDetails(workflowStatusUpdateDto);
+//		return workFlowService.updateWorkFlowDetails(workflowStatusUpdateDto);
+		return true;
 	}
 	
 //	@PostMapping("/changerequest/updateWorkFlow")

@@ -78,8 +78,6 @@ import com.oasys.helpdesk.utility.CommonUtil;
 import com.oasys.helpdesk.utility.GenericResponse;
 import com.oasys.helpdesk.utility.Library;
 import com.oasys.helpdesk.utility.POSAssetRequestStatus;
-import com.oasys.posasset.dto.POSAssetResponseDTO;
-import com.oasys.posasset.service.impl.POSAssetRequestServiceImpl;
 
 import lombok.extern.log4j.Log4j2;
 @Log4j2

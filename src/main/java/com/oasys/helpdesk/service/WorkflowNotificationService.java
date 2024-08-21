@@ -51,8 +51,6 @@ import com.oasys.helpdesk.utility.CommonUtil;
 import com.oasys.helpdesk.utility.GenericResponse;
 import com.oasys.helpdesk.utility.Library;
 import com.oasys.posasset.constant.ApprovalStatus;
-import com.oasys.posasset.dto.EalRequestDTO;
-import com.oasys.posasset.dto.EalStocksearchDTO;
 import com.oasys.posasset.entity.EALRequestMapEntity;
 import com.oasys.posasset.entity.EALStockEntity;
 
