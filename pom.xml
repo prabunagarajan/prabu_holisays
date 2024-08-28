@@ -9,11 +9,11 @@
 		<version>2.2.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.oasys</groupId>
-	<artifactId>HelpDesk-App</artifactId>
+	<groupId>com.devar</groupId>
+	<artifactId>devarCabs</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>HelpDeskService</name>
-	<description>project for UPExcise HelpDesk</description>
+	<name>devarCabs</name>
+	<description>project for devarCabs</description>
 
 
 
@@ -39,8 +39,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -417,7 +415,7 @@
 						<configuration>
 							<!-- this will get rid of version info from war file name This is 
 								for Eureka server -->
-							<finalName>helpdesk</finalName>
+							<finalName>devarCabs</finalName>
 							<fork>false</fork>
 						</configuration>
 					</plugin>
