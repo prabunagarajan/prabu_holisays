@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
 
 import com.devar.cabs.common.Trackable;
 
@@ -18,7 +17,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "trip_details")
-@Audited(withModifiedFlag = true)
 @NoArgsConstructor
 public class TripDetailsEntity extends Trackable{
 	
