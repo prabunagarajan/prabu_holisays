@@ -10,25 +10,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @SpringBootApplication
-////@EnableEurekaClient
 @ComponentScan("com.devar.*")
 @EntityScan("com.devar.*")
-//@EnableJpaRepositories("com.devar.*")
 @EnableJpaAuditing
-//@Log4j2
-//@EnableDiscoveryClient
-//@EnableAsync
-//@RefreshScope
-//@EnableScheduling
-//@EnableCaching
+
 public class DevarCabsApplication {
 
-	
-//	@Bean
-//    @LoadBalanced
-//    public RestTemplate restTemplate() {
-//        return new RestTemplate();
-//    }
 	public static void main(String[] args) {
 		SpringApplication.run(DevarCabsApplication.class, args);
 	}

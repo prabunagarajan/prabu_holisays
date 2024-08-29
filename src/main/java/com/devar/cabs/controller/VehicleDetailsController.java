@@ -40,13 +40,13 @@ public class VehicleDetailsController {
 
 	@PostMapping("add")
 	@ApiOperation(value = "This api is used to create a new Vehicle Details", notes = "Returns HTTP 200 if successful get the record")
-	public GenericResponse createDriverDetails(@RequestBody VehicleDetailsRequestDTO vehicleDetailsRequestDTO) {
+	public GenericResponse createVehicleDetails(@RequestBody VehicleDetailsRequestDTO vehicleDetailsRequestDTO) {
 		return vehicleDetailsService.add(vehicleDetailsRequestDTO);
 	}
 
 	@PutMapping("update")
 	@ApiOperation(value = "This api is used to update existing Vehicle Details", notes = "Returns HTTP 200 if successful get the record")
-	public GenericResponse updateG6MasterData(@RequestBody VehicleDetailsRequestDTO vehicleDetailsRequestDTO) {
+	public GenericResponse updateVehicleDetails(@RequestBody VehicleDetailsRequestDTO vehicleDetailsRequestDTO) {
 		return vehicleDetailsService.update(vehicleDetailsRequestDTO);
 	}
 

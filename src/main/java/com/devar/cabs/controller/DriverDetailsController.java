@@ -46,7 +46,7 @@ public class DriverDetailsController {
 
 	@PutMapping("update")
 	@ApiOperation(value = "This api is used to update existing DriverDetails", notes = "Returns HTTP 200 if successful get the record")
-	public GenericResponse updateG6MasterData(@RequestBody DriverDetailsRequestDTO driverDetailsRequestDTO) {
+	public GenericResponse updateDriverDetails(@RequestBody DriverDetailsRequestDTO driverDetailsRequestDTO) {
 		return driverDetailsService.update(driverDetailsRequestDTO);
 	}
 
