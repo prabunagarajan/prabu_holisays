@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
@@ -16,7 +15,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -36,7 +34,7 @@ public class SwaggerConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public Docket productApi() {
         final ParameterBuilder aParameterBuilder = new ParameterBuilder();
-        aParameterBuilder.name("Authorization")
+        aParameterBuilder.name("X-Authorization")
                 .modelRef(new ModelRef("string"))
                 .parameterType("header")
                 .defaultValue("")
@@ -62,22 +60,4 @@ public class SwaggerConfig extends WebSecurityConfigurerAdapter {
             "License of API", "API license URL");
     }
 	
-//	  @Bean
-//	    public Docket api() {
-//	        return new Docket(DocumentationType.SWAGGER_2)
-//	                .select()
-//	                .apis(RequestHandlerSelectors.basePackage("com.devar.cabs")) // Adjust base package as needed
-//	                .paths(PathSelectors.any())
-//	                .build()
-//	                .apiInfo(apiInfo());
-//	    }
-//
-//	    private ApiInfo apiInfo() {
-//	        return new ApiInfoBuilder()
-//	                .title("API Title")
-//	                .description("API Description")
-//	                .version("1.0.0")
-//	                .build();
-//	    }
-
 }

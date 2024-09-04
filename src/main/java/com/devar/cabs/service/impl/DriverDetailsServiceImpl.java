@@ -35,6 +35,19 @@ import com.devar.cabs.service.DriverDetailsService;
 import com.devar.cabs.utility.GenericResponse;
 import com.devar.cabs.utility.Library;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+
 import lombok.extern.log4j.Log4j2;
 
 @Service
@@ -113,11 +126,8 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 	public GenericResponse getById(Long id) {
 		Optional<DriverDetailsEntity> driverDetails = driverDetailsRepository.findById(id);
 		if (!driverDetails.isPresent()) {
-//			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-//					ErrorMessages.NO_RECORD_FOUND);
-
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-					ResponseMessageConstant.NO_RECORD_FOUND.getMessage());
+			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(driverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
@@ -127,8 +137,9 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 	public GenericResponse getAll() {
 		List<DriverDetailsEntity> DepList = driverDetailsRepository.findAllByOrderByIdDesc();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), ErrorMessages.NO_RECORD_FOUND);
-		}
+			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+					ErrorMessages.NO_RECORD_FOUND);
+			}
 //		List<SiteVisitResponseDTO> depResponseList = DepList.stream().map(sitevisitmapper::entityToResponseDTO)
 //				.collect(Collectors.toList());
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
@@ -140,7 +151,8 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 		List<DriverDetailsEntity> list = this.getSubRecordsByFilterDTO1(requestData);
 		List<DriverDetailsEntity> list1 = this.getSubRecordsByFilterDTO2(requestData);
 		if (CollectionUtils.isEmpty(list) && CollectionUtils.isEmpty(list1)) {
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), "No Record Found");
+			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+					ErrorMessages.NO_RECORD_FOUND);
 		}
 		if (!list.isEmpty()) {
 			paginationResponseDTO.setContents(list);
@@ -317,13 +329,92 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 	public GenericResponse getAllActive() {
 		List<DriverDetailsEntity> activeDriverDetails = driverDetailsRepository.findByStatusOrderByModifiedDateDesc(Boolean.TRUE);
 		if (CollectionUtils.isEmpty(activeDriverDetails)) {
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-					ResponseMessageConstant.NO_RECORD_FOUND.getMessage());
+			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+					ErrorMessages.NO_RECORD_FOUND);
 		}
 //		List<DriverDetailsEntity> actionTakenResponseDtos = activeDriverDetails.stream()
 //				.map(actionTakenMapper::convertEntityToResponseDTO).collect(Collectors.toList());
 		return Library.getSuccessfulResponse(activeDriverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
 	}
+	
+	public void importExcelData(MultipartFile file) {
+	    try (InputStream inputStream = file.getInputStream();
+	         Workbook workbook = new XSSFWorkbook(inputStream)) {
 
+	        Sheet sheet = workbook.getSheetAt(0);
+	        Iterator<Row> rows = sheet.iterator();
+
+	        // Skip header row
+	        if (rows.hasNext()) rows.next();
+
+	        while (rows.hasNext()) {
+	            Row row = rows.next();
+	            DriverDetailsEntity driverDetails = new DriverDetailsEntity();
+
+	            driverDetails.setAadharNumber(getStringCellValue(row.getCell(0)));
+	            driverDetails.setCounty(getStringCellValue(row.getCell(1)));
+	            driverDetails.setDistrict(getStringCellValue(row.getCell(2)));
+	            driverDetails.setDoorNumber(getStringCellValue(row.getCell(3)));
+	            driverDetails.setDrivingLicenseNumber(getStringCellValue(row.getCell(4)));
+	            driverDetails.setIsPermanentDriver(getBooleanCellValue(row.getCell(5)));
+	            driverDetails.setMobileNumber(getStringCellValue(row.getCell(6)));
+	            driverDetails.setName(getStringCellValue(row.getCell(7)));
+	            driverDetails.setState(getStringCellValue(row.getCell(8)));
+	            driverDetails.setStatus(getBooleanCellValue(row.getCell(9)));
+	            driverDetails.setStreet(getStringCellValue(row.getCell(10)));
+	            driverDetails.setVillageOrCity(getStringCellValue(row.getCell(11)));
+
+	            driverDetails.setCreatedBy(getNumericCellValue(row.getCell(12)));
+	            driverDetails.setModifiedBy(getNumericCellValue(row.getCell(14)));
+
+	            // Handle date values if present
+	            // Uncomment and adjust if your file contains dates
+	            // driverDetails.setCreatedDate(getDateCellValue(row.getCell(13)));
+	            // driverDetails.setModifiedDate(getDateCellValue(row.getCell(15)));
+
+	            driverDetailsRepository.save(driverDetails);
+	        }
+	    } catch (IOException e) {
+	        throw new RuntimeException("Failed to import data from Excel file", e);
+	    }
+	}
+
+	private String getStringCellValue(Cell cell) {
+	    return cell == null ? "" : cell.toString();
+	}
+
+	private boolean getBooleanCellValue(Cell cell) {
+	    if (cell == null) return false;
+	    switch (cell.getCellType()) {
+	        case BOOLEAN:
+	            return cell.getBooleanCellValue();
+	        case STRING:
+	            return Boolean.parseBoolean(cell.getStringCellValue());
+	        default:
+	            return false;
+	    }
+	}
+
+	private long getNumericCellValue(Cell cell) {
+	    if (cell == null) return 0;
+	    switch (cell.getCellType()) {
+	        case NUMERIC:
+	            return (long) cell.getNumericCellValue();
+	        case STRING:
+	            try {
+	                return Long.parseLong(cell.getStringCellValue());
+	            } catch (NumberFormatException e) {
+	                return 0;
+	            }
+	        default:
+	            return 0;
+	    }
+	}
+
+	// Uncomment and adjust if your file contains dates
+	// private LocalDateTime getDateCellValue(Cell cell) {
+//	     if (cell == null || cell.getCellType() != CellType.NUMERIC) return null;
+//	     return cell.getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+	// }
 }

@@ -54,7 +54,7 @@ public class JwtUtil {
     public String generateToken(UserDetails userDetails, UserEntity user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", user.getId());
-        claims.put("firstname", user.getFirstname());
+        claims.put("first_Name", user.getFirstName());
         claims.put("email", user.getEmail());
         claims.put("phone_number", user.getPhoneNumber());
         return createToken(claims, userDetails.getUsername());
@@ -65,7 +65,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 10))  // Token valid for 10 min
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 10 * 10))  // Token valid for 10 min
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }

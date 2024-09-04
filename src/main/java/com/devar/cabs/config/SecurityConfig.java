@@ -42,21 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 	    }
 
-//	    @Override
-//	    protected void configure(HttpSecurity http) throws Exception {
-//	        http.cors().and().csrf().disable()
-//	            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//	            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//	            .authorizeRequests()
-//	            .antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
-//	            .antMatchers(HttpMethod.POST, "/api/users/signup").permitAll()
-//	            .antMatchers("/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/swagger-resources/**").permitAll()
-//	            .anyRequest().authenticated().and()
-//	            .logout().invalidateHttpSession(true).clearAuthentication(true)
-//	            .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-//
-//	        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//	    }
 	    
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {
@@ -64,8 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 	            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 	            .authorizeRequests()
-	            .antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
-	            .antMatchers(HttpMethod.POST, "/api/users/signup").permitAll()
+	            .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+	            .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
 	            .antMatchers("/authentication/**", "/actuator/info/**", "/actuator/**", "/v2/api-docs",
 						"/swagger-resources", "/swagger-resources/**", "/validatorUrl", "/swagger-ui.html",
 						"/webjars/**", "/hystrix/**", "/hystrix", "*.stream", "/hystrix.stream", "/proxy.stream",

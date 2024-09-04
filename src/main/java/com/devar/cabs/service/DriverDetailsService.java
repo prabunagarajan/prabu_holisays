@@ -2,15 +2,13 @@ package com.devar.cabs.service;
 
 import javax.validation.Valid;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.devar.cabs.requestDTO.DriverDetailsRequestDTO;
 import com.devar.cabs.requestDTO.PaginationRequestDTO;
 import com.devar.cabs.utility.GenericResponse;
 
-
-
-
 public interface DriverDetailsService {
-
 
 	GenericResponse add(DriverDetailsRequestDTO driverDetailsRequestDTO);
 
@@ -24,5 +22,6 @@ public interface DriverDetailsService {
 
 	GenericResponse getAllActive();
 
+	void importExcelData(MultipartFile file);
 
 }
