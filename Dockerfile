@@ -1,4 +1,18 @@
-# Use the official OpenJDK 8 image as the base image
+# Stage 1: Build the application using Maven
+FROM maven:3.6.3-openjdk-8 AS build
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy the pom.xml and download dependencies
+COPY pom.xml ./
+RUN mvn dependency:go-offline
+
+# Copy the entire project source and build the JAR
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run the application using the built JAR
 FROM openjdk:8-jdk-alpine
 
 # Install tzdata for timezone configuration
@@ -7,13 +21,13 @@ RUN apk --no-cache add tzdata
 # Set the default timezone
 ENV TZ=Asia/Kolkata
 
-# Set the working directory inside the container
+# Set the working directory for the runtime environment
 WORKDIR /usr/src/app
 
-# Copy the JAR file created by Maven from target folder to the container
-COPY target/devarCabs.jar /usr/src/app/app.jar
+# Copy the JAR from the build stage
+COPY --from=build /usr/src/app/target/devarCabs.jar /usr/src/app/app.jar
 
-# Expose the port that the application will run on (Spring Boot default is 8080)
+# Expose the port the application will run on
 EXPOSE 8080
 
 # Command to run the Spring Boot application
