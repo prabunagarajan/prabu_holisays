@@ -40,14 +40,14 @@ import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class VehicleDetailsServiceImpl implements VehicleDetailsService{
+public class VehicleDetailsServiceImpl implements VehicleDetailsService {
 
 	@Autowired
 	private EntityManager entityManager;
-	
+
 	@Autowired
 	VehicleDetailsRepository vehicleDetailsRepository;
-	
+
 	public GenericResponse add(VehicleDetailsRequestDTO vehicleDetailsRequestDTO) {
 		Optional<VehicleDetailsEntity> vehiclenum = vehicleDetailsRepository
 				.findByVehicleNumber(vehicleDetailsRequestDTO.getVehicleNumber());
@@ -70,15 +70,15 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 					ErrorCode.CREATED.getErrorCode(), ErrorMessages.RECORED_CREATED);
 		}
 	}
-	
+
 	@Override
 	public GenericResponse update(VehicleDetailsRequestDTO vehicleDetailsRequestDTO) {
 		if (Objects.isNull(vehicleDetailsRequestDTO.getId())) {
 			return Library.getFailResponseCode(ErrorCode.BAD_REQUEST.getErrorCode(),
 					ResponseMessageConstant.MANDTORY_REQUEST_PARM.getMessage(new Object[] { "ID" }));
 		}
-		Optional<VehicleDetailsEntity> entityOptional = vehicleDetailsRepository
-				.findByVehicleNumberNotInId(vehicleDetailsRequestDTO.getVehicleNumber(), vehicleDetailsRequestDTO.getId());
+		Optional<VehicleDetailsEntity> entityOptional = vehicleDetailsRepository.findByVehicleNumberNotInId(
+				vehicleDetailsRequestDTO.getVehicleNumber(), vehicleDetailsRequestDTO.getId());
 		if (entityOptional.isPresent()) {
 			return Library.getFailResponseCode(ErrorCode.INVALID_DATA.getErrorCode(),
 					ResponseMessageConstant.ALREADY_EXISTS.getMessage(new Object[] { "Vehicle Number" }));
@@ -100,7 +100,8 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 		vehicleDetailsEntity.setModifiedDate(new Date());
 		vehicleDetailsEntity.setPolutionDate(vehicleDetailsRequestDTO.getPolutionDate());
 		vehicleDetailsRepository.save(vehicleDetailsEntity);
-		return Library.getSuccessfulResponse(vehicleDetailsEntity, ErrorCode.CREATED.getErrorCode(), ErrorMessages.RECORED_UPDATED);
+		return Library.getSuccessfulResponse(vehicleDetailsEntity, ErrorCode.CREATED.getErrorCode(),
+				ErrorMessages.RECORED_UPDATED);
 	}
 
 	@Override
@@ -126,7 +127,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
 	}
-	
+
 	public GenericResponse getsubPagesearchNewByFilter(PaginationRequestDTO requestData) {
 		PaginationResponseDTO paginationResponseDTO = new PaginationResponseDTO();
 		List<VehicleDetailsEntity> list = this.getSubRecordsByFilterDTO1(requestData);
@@ -139,8 +140,10 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 			paginationResponseDTO.setContents(list);
 		}
 		Long count1 = (long) list1.size();
-		paginationResponseDTO.setNumberOfElements(Objects.nonNull(list1.size()) ? list1.size() : null);
+		paginationResponseDTO.setNumberOfElements(Objects.nonNull(list.size()) ? list.size() : null);
 		paginationResponseDTO.setTotalElements(count1);
+		int totalPages = (int) Math.ceil((double) count1 / requestData.getPaginationSize());
+		paginationResponseDTO.setTotalPages(totalPages);
 		return Library.getSuccessfulResponse(paginationResponseDTO, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
 	}
@@ -257,7 +260,6 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 			String district = (filterRequestDTO.getFilters().get("vehicleColor").toString());
 			list.add(cb.equal(from.get("vehicleColor"), district));
 		}
-		
 
 		if (Objects.nonNull(filterRequestDTO.getFilters().get("modifiedBy"))
 				&& !filterRequestDTO.getFilters().get("modifiedBy").toString().trim().isEmpty()) {
@@ -266,8 +268,8 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 			list.add(cb.equal(from.get("modifiedBy"), modifiedBy));
 		}
 		if (Objects.nonNull(filterRequestDTO.getFilters().get("status"))) {
-		    Boolean status = Boolean.valueOf(filterRequestDTO.getFilters().get("status").toString());
-		    list.add(cb.equal(from.get("status"), status));
+			Boolean status = Boolean.valueOf(filterRequestDTO.getFilters().get("status").toString());
+			list.add(cb.equal(from.get("status"), status));
 		}
 
 		if ((Objects.nonNull(filterRequestDTO.getFilters().get("isCustomer"))
@@ -285,9 +287,10 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 		}
 
 	}
-	
+
 	public GenericResponse getAllActive() {
-		List<VehicleDetailsEntity> activeDriverDetails = vehicleDetailsRepository.findByStatusOrderByModifiedDateDesc(Boolean.TRUE);
+		List<VehicleDetailsEntity> activeDriverDetails = vehicleDetailsRepository
+				.findByStatusOrderByModifiedDateDesc(Boolean.TRUE);
 		if (CollectionUtils.isEmpty(activeDriverDetails)) {
 			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
@@ -295,16 +298,15 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService{
 		return Library.getSuccessfulResponse(activeDriverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
 	}
-	
 
 	public GenericResponse getNextDate() {
 		List<VehicleNextDateDTO> DepList = vehicleDetailsRepository.getNextDate();
 		if (CollectionUtils.isEmpty(DepList)) {
 			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
-			}
+		}
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
 	}
-	
+
 }
