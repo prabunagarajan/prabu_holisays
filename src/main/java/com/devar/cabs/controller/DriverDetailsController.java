@@ -32,7 +32,6 @@ import io.swagger.annotations.ApiResponses;
 		@ApiResponse(code = 409, message = "Conflict occurred") })
 
 @RequestMapping("/DriverDetails/")
-@CrossOrigin("*")
 public class DriverDetailsController {
 
 	@Autowired

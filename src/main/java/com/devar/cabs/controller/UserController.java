@@ -37,7 +37,6 @@ import java.util.Optional;
 		@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
 		@ApiResponse(code = 409, message = "Conflict occurred") })
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/auth")
 public class UserController {
 	

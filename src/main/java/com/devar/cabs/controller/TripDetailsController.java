@@ -34,7 +34,6 @@ import io.swagger.annotations.ApiResponses;
 		@ApiResponse(code = 409, message = "Conflict occurred") })
 
 @RequestMapping("/tripDetails/")
-@CrossOrigin("*")
 public class TripDetailsController {
 	
 	@Autowired
