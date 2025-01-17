@@ -158,8 +158,10 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 			paginationResponseDTO.setContents(list);
 		}
 		Long count1 = (long) list1.size();
-		paginationResponseDTO.setNumberOfElements(Objects.nonNull(list1.size()) ? list1.size() : null);
+		paginationResponseDTO.setNumberOfElements(Objects.nonNull(list.size()) ? list.size() : null);
 		paginationResponseDTO.setTotalElements(count1);
+		int totalPages = (int) Math.ceil((double) count1 / requestData.getPaginationSize());
+		paginationResponseDTO.setTotalPages(totalPages);
 		return Library.getSuccessfulResponse(paginationResponseDTO, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
 	}
