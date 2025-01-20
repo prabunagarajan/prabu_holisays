@@ -126,7 +126,7 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 	public GenericResponse getById(Long id) {
 		Optional<DriverDetailsEntity> driverDetails = driverDetailsRepository.findById(id);
 		if (!driverDetails.isPresent()) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(driverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
@@ -137,7 +137,7 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 	public GenericResponse getAll() {
 		List<DriverDetailsEntity> DepList = driverDetailsRepository.findAllByOrderByIdDesc();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 			}
 //		List<SiteVisitResponseDTO> depResponseList = DepList.stream().map(sitevisitmapper::entityToResponseDTO)
@@ -151,7 +151,7 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 		List<DriverDetailsEntity> list = this.getSubRecordsByFilterDTO1(requestData);
 		List<DriverDetailsEntity> list1 = this.getSubRecordsByFilterDTO2(requestData);
 		if (CollectionUtils.isEmpty(list) && CollectionUtils.isEmpty(list1)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		if (!list.isEmpty()) {
@@ -331,7 +331,7 @@ public class DriverDetailsServiceImpl implements DriverDetailsService {
 	public GenericResponse getAllActive() {
 		List<DriverDetailsEntity> activeDriverDetails = driverDetailsRepository.findByStatusOrderByModifiedDateDesc(Boolean.TRUE);
 		if (CollectionUtils.isEmpty(activeDriverDetails)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 //		List<DriverDetailsEntity> actionTakenResponseDtos = activeDriverDetails.stream()

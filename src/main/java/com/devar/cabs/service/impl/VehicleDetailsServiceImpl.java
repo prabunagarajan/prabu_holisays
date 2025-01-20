@@ -108,7 +108,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
 	public GenericResponse getById(Long id) {
 		Optional<VehicleDetailsEntity> driverDetails = vehicleDetailsRepository.findById(id);
 		if (!driverDetails.isPresent()) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(driverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
@@ -119,7 +119,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
 	public GenericResponse getAll() {
 		List<VehicleDetailsEntity> DepList = vehicleDetailsRepository.findAllByOrderByIdDesc();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 //		List<SiteVisitResponseDTO> depResponseList = DepList.stream().map(sitevisitmapper::entityToResponseDTO)
@@ -132,8 +132,8 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
 		PaginationResponseDTO paginationResponseDTO = new PaginationResponseDTO();
 		List<VehicleDetailsEntity> list = this.getSubRecordsByFilterDTO1(requestData);
 		List<VehicleDetailsEntity> list1 = this.getSubRecordsByFilterDTO2(requestData);
-		if (CollectionUtils.isEmpty(list) && CollectionUtils.isEmpty(list1)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+		if (CollectionUtils.isEmpty(list) || CollectionUtils.isEmpty(list1)) {
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		if (!list.isEmpty()) {
@@ -292,7 +292,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
 		List<VehicleDetailsEntity> activeDriverDetails = vehicleDetailsRepository
 				.findByStatusOrderByModifiedDateDesc(Boolean.TRUE);
 		if (CollectionUtils.isEmpty(activeDriverDetails)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(activeDriverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
@@ -302,7 +302,7 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
 	public GenericResponse getNextDate() {
 		List<VehicleNextDateDTO> DepList = vehicleDetailsRepository.getNextDate();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),

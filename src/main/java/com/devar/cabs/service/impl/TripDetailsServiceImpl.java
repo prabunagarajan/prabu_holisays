@@ -154,7 +154,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		Optional<TripDetailsEntity> driverDetails = tripDetailsRepository.findById(id);
 		if (!driverDetails.isPresent()) {
 
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(driverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
@@ -165,7 +165,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 	public GenericResponse getAll() {
 		List<TripDetailsEntity> DepList = tripDetailsRepository.findAllByOrderByIdDesc();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
@@ -177,7 +177,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		List<TripDetailsEntity> list = this.getSubRecordsByFilterDTO1(requestData);
 		List<TripDetailsEntity> list1 = this.getSubRecordsByFilterDTO2(requestData);
 		if (CollectionUtils.isEmpty(list) && CollectionUtils.isEmpty(list1)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		if (!list.isEmpty()) {
@@ -370,7 +370,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 	public GenericResponse getPendingList() {
 		List<TripDetailsEntity> DepList = tripDetailsRepository.getPendingList();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
@@ -381,7 +381,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		Optional<TripDetailsEntity> lastRecord = tripDetailsRepository.getLastRecordByVehicleNumber(vehicleNumber);
 		if (!lastRecord.isPresent()) {
 
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
 					ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(lastRecord, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
