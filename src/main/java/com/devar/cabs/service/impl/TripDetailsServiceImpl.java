@@ -64,7 +64,8 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		entity.setAcOrNonAc(requestDTO.getAcOrNonAc());
 		entity.setAcStartingKM(requestDTO.getAcStartingKM());
 		entity.setAcClosingKM(requestDTO.getAcClosingKM());
-		entity.setUsedAcKM(requestDTO.getAcClosingKM() - requestDTO.getAcStartingKM());
+		entity.setUsedAcKM((requestDTO.getAcClosingKM() == null ? 0 : requestDTO.getAcClosingKM())
+				- (requestDTO.getAcStartingKM() == null ? 0 : requestDTO.getAcStartingKM()));
 		entity.setAcNote(requestDTO.getAcNote());
 		entity.setVisitingPlace(requestDTO.getVisitingPlace());
 		entity.setAdvanceType(requestDTO.getAdvanceType());
@@ -154,8 +155,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		Optional<TripDetailsEntity> driverDetails = tripDetailsRepository.findById(id);
 		if (!driverDetails.isPresent()) {
 
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-					ErrorMessages.NO_RECORD_FOUND);
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(driverDetails, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
@@ -165,8 +165,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 	public GenericResponse getAll() {
 		List<TripDetailsEntity> DepList = tripDetailsRepository.findAllByOrderByIdDesc();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-					ErrorMessages.NO_RECORD_FOUND);
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
@@ -177,8 +176,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		List<TripDetailsEntity> list = this.getSubRecordsByFilterDTO1(requestData);
 		List<TripDetailsEntity> list1 = this.getSubRecordsByFilterDTO2(requestData);
 		if (CollectionUtils.isEmpty(list) && CollectionUtils.isEmpty(list1)) {
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-					ErrorMessages.NO_RECORD_FOUND);
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), ErrorMessages.NO_RECORD_FOUND);
 		}
 		if (!list.isEmpty()) {
 			paginationResponseDTO.setContents(list);
@@ -370,8 +368,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 	public GenericResponse getPendingList() {
 		List<TripDetailsEntity> DepList = tripDetailsRepository.getPendingList();
 		if (CollectionUtils.isEmpty(DepList)) {
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-					ErrorMessages.NO_RECORD_FOUND);
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(DepList, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
@@ -381,8 +378,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		Optional<TripDetailsEntity> lastRecord = tripDetailsRepository.getLastRecordByVehicleNumber(vehicleNumber);
 		if (!lastRecord.isPresent()) {
 
-			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
-					ErrorMessages.NO_RECORD_FOUND);
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(), ErrorMessages.NO_RECORD_FOUND);
 		}
 		return Library.getSuccessfulResponse(lastRecord, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
