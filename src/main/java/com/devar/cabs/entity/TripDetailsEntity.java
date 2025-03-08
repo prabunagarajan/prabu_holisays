@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 
 import com.devar.cabs.common.Trackable;
+import com.devar.cabs.enums.ApprovalStatus;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -114,6 +115,6 @@ public class TripDetailsEntity extends Trackable{
 	    private String submittedBy;
 
 	    @Column(name = "status")
-	    private String status;
+	    private ApprovalStatus status;
 
 }
