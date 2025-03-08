@@ -26,6 +26,7 @@ import com.devar.cabs.common.ErrorCode;
 import com.devar.cabs.common.ErrorMessages;
 import com.devar.cabs.common.ResponseMessageConstant;
 import com.devar.cabs.entity.TripDetailsEntity;
+import com.devar.cabs.enums.ApprovalStatus;
 import com.devar.cabs.exception.InvalidDataValidation;
 import com.devar.cabs.repository.TripDetailsRepository;
 import com.devar.cabs.requestDTO.PaginationRequestDTO;
@@ -326,12 +327,12 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 			String district = (filterRequestDTO.getFilters().get("acOrNonAc").toString());
 			list.add(cb.equal(from.get("acOrNonAc"), district));
 		}
-		if (Objects.nonNull(filterRequestDTO.getFilters().get("status"))
-				&& !filterRequestDTO.getFilters().get("status").toString().trim().isEmpty()) {
-
-			String district = (filterRequestDTO.getFilters().get("status").toString());
-			list.add(cb.equal(from.get("status"), district));
-		}
+//		if (Objects.nonNull(filterRequestDTO.getFilters().get("status"))
+//				&& !filterRequestDTO.getFilters().get("status").toString().trim().isEmpty()) {
+//
+//			String district = (filterRequestDTO.getFilters().get("status").toString());
+//			list.add(cb.equal(from.get("status"), district));
+//		}
 //		if (Objects.nonNull(filterRequestDTO.getFilters().get("status"))) {
 //			Boolean status = Boolean.valueOf(filterRequestDTO.getFilters().get("status").toString());
 //			list.add(cb.equal(from.get("status"), status));
@@ -340,6 +341,28 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 //		    boolean status = filterRequestDTO.getFilters().get("status");
 //		    list.add(cb.equal(from.get("status"), status));
 //		}
+
+		if (Objects.nonNull(filterRequestDTO.getFilters().get("status"))
+				&& !filterRequestDTO.getFilters().get("status").toString().trim().isEmpty()) {
+			ApprovalStatus status = null;
+			if (filterRequestDTO.getFilters().get("status").toString().equals(ApprovalStatus.DRAFT.name())) {
+				status = ApprovalStatus.DRAFT;
+			} else if (filterRequestDTO.getFilters().get("status").toString()
+					.equals(ApprovalStatus.INPROGRESS.name())) {
+				status = ApprovalStatus.INPROGRESS;
+			} else if (filterRequestDTO.getFilters().get("status").toString()
+					.equals(ApprovalStatus.REQUESTFORCLARIFICATION.name())) {
+				status = ApprovalStatus.REQUESTFORCLARIFICATION;
+			} else if (filterRequestDTO.getFilters().get("status").toString().equals(ApprovalStatus.APPROVED.name())) {
+				status = ApprovalStatus.APPROVED;
+			} else if (filterRequestDTO.getFilters().get("status").toString().equals(ApprovalStatus.REJECT.name())) {
+				status = ApprovalStatus.REJECT;
+			} else if (filterRequestDTO.getFilters().get("status").toString().equals(ApprovalStatus.FORWARDED.name())) {
+				status = ApprovalStatus.FORWARDED;
+			}
+
+			list.add(cb.equal(from.get("status"), status));
+		}
 
 		if (Objects.nonNull(filterRequestDTO.getFilters().get("modifiedBy"))
 				&& !filterRequestDTO.getFilters().get("modifiedBy").toString().trim().isEmpty()) {

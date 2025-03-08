@@ -2,8 +2,7 @@ package com.devar.cabs.requestDTO;
 
 import java.util.Date;
 
-import java.time.LocalDateTime;
-
+import com.devar.cabs.enums.ApprovalStatus;
 
 import lombok.Data;
 
@@ -42,5 +41,5 @@ public class TripDetailsRequestDTO {
 	    private int balanceAmount;
 	    private int profitAmount;
 	    private String submittedBy;
-	    private String status;
+	    private ApprovalStatus status;
 }
