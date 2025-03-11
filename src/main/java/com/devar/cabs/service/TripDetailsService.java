@@ -14,6 +14,8 @@ public interface TripDetailsService {
 	GenericResponse add(TripDetailsRequestDTO tripDetailsRequestDTO);
 
 	GenericResponse update(TripDetailsRequestDTO tripDetailsRequestDTO);
+	
+	GenericResponse updateApproval(TripDetailsRequestDTO tripDetailsRequestDTO);
 
 	GenericResponse getById(Long id);
 
