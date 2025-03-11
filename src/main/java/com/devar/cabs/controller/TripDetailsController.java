@@ -50,6 +50,15 @@ public class TripDetailsController {
 	public GenericResponse updateTripDetails(@RequestBody TripDetailsRequestDTO tripDetailsRequestDTO) {
 		return tripDetailsService.update(tripDetailsRequestDTO);
 	}
+	
+	@ApiOperation(value = "This api to Approval", notes = "Returns HTTP 200 if successful get the record")
+	@PutMapping(value = "/approval")
+	public ResponseEntity<Object> updateApproval(@RequestBody TripDetailsRequestDTO approvalDto) throws Exception {
+
+		return new ResponseEntity<>(tripDetailsService.updateApproval(approvalDto),
+				ResponseHeaderUtility.HttpHeadersConfig(), HttpStatus.OK);
+
+	}
 
 	@GetMapping("/getById/{id}")
 	@ApiOperation(value = "This api is to get SiteVisit by id", notes = "Returns HTTP 200 if successful get the record")

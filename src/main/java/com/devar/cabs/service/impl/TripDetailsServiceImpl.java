@@ -152,6 +152,29 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		return Library.getSuccessfulResponse(entity, ErrorCode.CREATED.getErrorCode(), ErrorMessages.RECORED_UPDATED);
 	}
 
+	public GenericResponse updateApproval(TripDetailsRequestDTO requestDTO) {
+
+		if (Objects.isNull(requestDTO.getId())) {
+			return Library.getFailResponseCode(ErrorCode.BAD_REQUEST.getErrorCode(),
+					ResponseMessageConstant.MANDTORY_REQUEST_PARM.getMessage(new Object[] { "ID" }));
+		}
+
+		// Retrieve the existing entity from the repository
+		Optional<TripDetailsEntity> entityOptional = tripDetailsRepository.findById(requestDTO.getId());
+		if (!entityOptional.isPresent()) {
+//			return Library.getFailResponseCode(ErrorCode.INVALID_DATA.getErrorCode(),
+//					ResponseMessageConstant.INVALID_REQUEST_PARM.getMessage(new Object[] { "ID" }));
+			return Library.getFailResponseCode(ErrorCode.NO_RECORD_FOUND.getErrorCode(),
+					ResponseMessageConstant.NO_RECORD_FOUND.getMessage());
+		} else {
+			TripDetailsEntity entity = entityOptional.get(); // Use the existing entity
+			entity.setStatus(requestDTO.getStatus());
+			tripDetailsRepository.save(entity);
+			return Library.getSuccessfulResponse(entity, ErrorCode.CREATED.getErrorCode(),
+					ErrorMessages.RECORED_UPDATED);
+		}
+	}
+
 	public GenericResponse getById(Long id) {
 		Optional<TripDetailsEntity> driverDetails = tripDetailsRepository.findById(id);
 		if (!driverDetails.isPresent()) {

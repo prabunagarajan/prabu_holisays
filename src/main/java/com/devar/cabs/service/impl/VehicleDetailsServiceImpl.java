@@ -52,10 +52,8 @@ public class VehicleDetailsServiceImpl implements VehicleDetailsService {
 		Optional<VehicleDetailsEntity> vehiclenum = vehicleDetailsRepository
 				.findByVehicleNumber(vehicleDetailsRequestDTO.getVehicleNumber());
 		if (vehiclenum.isPresent()) {
-//			return Library.getFailResponseCode(ErrorCode.INVALID_DATA.getErrorCode(),
-//					ResponseMessageConstant.ALREADY_EXISTS.getMessage("Vehicle Number"));
-			return Library.getFailResponseCode(ErrorCode.FAILURE_RESPONSE.getErrorCode(),
-					"Record already exists for vehicle no: " + vehicleDetailsRequestDTO.getVehicleNumber());
+			return Library.getFailResponseCode(ErrorCode.INVALID_DATA.getErrorCode(),
+					ResponseMessageConstant.ALREADY_EXISTS.getMessage(new Object[] { "Vehicle Number" }));
 		} else {
 			VehicleDetailsEntity vehicleDetailsEntity = new VehicleDetailsEntity();
 			vehicleDetailsEntity.setVehicleNumber(vehicleDetailsRequestDTO.getVehicleNumber());
