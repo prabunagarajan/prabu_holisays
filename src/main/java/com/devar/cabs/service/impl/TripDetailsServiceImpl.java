@@ -6,9 +6,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -428,5 +431,44 @@ public class TripDetailsServiceImpl implements TripDetailsService {
 		}
 		return Library.getSuccessfulResponse(lastRecord, ErrorCode.SUCCESS_RESPONSE.getErrorCode(),
 				ErrorMessages.RECORED_FOUND);
+	}
+
+	@Override
+	public List<Map<String, Object>> getTotalVehicleTripsAndProfit(int month, int year) {
+		List<Object[]> results = tripDetailsRepository.getTotalTripsAndProfitByVehicle(month, year);
+
+		return results.stream().map(record -> {
+			Map<String, Object> map = new HashMap<>();
+			map.put("vehicleNumber", record[0]); // Ensure correct field mapping
+			map.put("totalTrips", ((Number) record[1]).intValue()); // Ensuring numeric conversion
+			map.put("totalProfit", ((Number) record[2]).doubleValue()); // Ensuring correct data type
+			return map;
+		}).collect(Collectors.toList());
+	}
+
+//	@Override
+//	public List<Map<String, Object>> get3MonthVehicleTripsAndProfit() {
+//		List<Object[]> results = tripDetailsRepository.getLastThreeMonthsTotalTripsAndProfit();
+//
+//		return results.stream().map(record -> {
+//			Map<String, Object> map = new HashMap<>();
+//			map.put("vehicleNumber", record[0]); // Ensure correct field mapping
+//			map.put("totalTrips", ((Number) record[1]).intValue()); // Ensuring numeric conversion
+//			map.put("totalProfit", ((Number) record[2]).doubleValue()); // Ensuring correct data type
+//			return map;
+//		}).collect(Collectors.toList());
+//	}
+
+	@Override
+	public List<Map<String, Object>> getTotalDriverTripsAndSalary(int month, int year) {
+		List<Object[]> results = tripDetailsRepository.getTotalDriverTripsAndSalary(month, year);
+
+		return results.stream().map(record -> {
+			Map<String, Object> map = new HashMap<>();
+			map.put("vehicleNumber", record[0]); // Ensure correct field mapping
+			map.put("totalTrips", ((Number) record[1]).intValue()); // Ensuring numeric conversion
+			map.put("totalProfit", ((Number) record[2]).doubleValue()); // Ensuring correct data type
+			return map;
+		}).collect(Collectors.toList());
 	}
 }
