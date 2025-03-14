@@ -1,17 +1,20 @@
 package com.devar.cabs.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devar.cabs.requestDTO.PaginationRequestDTO;
@@ -35,10 +38,10 @@ import io.swagger.annotations.ApiResponses;
 
 @RequestMapping("/tripDetails/")
 public class TripDetailsController {
-	
+
 	@Autowired
 	TripDetailsService tripDetailsService;
-	
+
 	@PostMapping("add")
 	@ApiOperation(value = "This api is used to create a new DriverDetails", notes = "Returns HTTP 200 if successful get the record")
 	public GenericResponse createTripDetails(@RequestBody TripDetailsRequestDTO tripDetailsRequestDTO) {
@@ -50,7 +53,7 @@ public class TripDetailsController {
 	public GenericResponse updateTripDetails(@RequestBody TripDetailsRequestDTO tripDetailsRequestDTO) {
 		return tripDetailsService.update(tripDetailsRequestDTO);
 	}
-	
+
 	@ApiOperation(value = "This api to Approval", notes = "Returns HTTP 200 if successful get the record")
 	@PutMapping(value = "/approval")
 	public ResponseEntity<Object> updateApproval(@RequestBody TripDetailsRequestDTO approvalDto) throws Exception {
@@ -81,19 +84,44 @@ public class TripDetailsController {
 		return new ResponseEntity<>(tripDetailsService.getsubPagesearchNewByFilter(paginationRequestDTO),
 				ResponseHeaderUtility.HttpHeadersConfig(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getPendingList")
-	@ApiOperation(value = "This api is to get all SiteVisit list", notes = "Returns HTTP 200 if successful get the record")
+	@ApiOperation(value = "This api is to get all Pending Payment List", notes = "Returns HTTP 200 if successful get the record")
 	public ResponseEntity<Object> getPendingList() {
 		return new ResponseEntity<>(tripDetailsService.getPendingList(), ResponseHeaderUtility.HttpHeadersConfig(),
 				HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getLastRecordByV/{vehicleNumber}")
-	@ApiOperation(value = "This api is to get SiteVisit by id", notes = "Returns HTTP 200 if successful get the record")
+	@ApiOperation(value = "This api is to get Last Record by Vehicle Number", notes = "Returns HTTP 200 if successful get the record")
 	public ResponseEntity<Object> getLastRecordByVehicleNumber(@PathVariable String vehicleNumber) {
-		return new ResponseEntity<>(tripDetailsService.getLastRecordByVehicleNumber(vehicleNumber), ResponseHeaderUtility.HttpHeadersConfig(),
-				HttpStatus.OK);
+		return new ResponseEntity<>(tripDetailsService.getLastRecordByVehicleNumber(vehicleNumber),
+				ResponseHeaderUtility.HttpHeadersConfig(), HttpStatus.OK);
+	}
+
+	@GetMapping("/getTotalVehicleTripsAndProfit")
+	@ApiOperation(value = "Get Total Vehicle Trips and Profit", notes = "Returns HTTP 200 if successful")
+	public ResponseEntity<List<Map<String, Object>>> getTotalVehicleTripsAndProfit(@RequestParam int month,
+			@RequestParam int year) {
+		List<Map<String, Object>> response = tripDetailsService.getTotalVehicleTripsAndProfit(month, year);
+		return ResponseEntity.ok().headers(ResponseHeaderUtility.HttpHeadersConfig()).body(response);
+	}
+
+//	@GetMapping("/get3MonthVehicleTripsAndProfit")
+//	@ApiOperation(value = "Get Total Vehicle Trips and Profit", notes = "Returns HTTP 200 if successful")
+//	public ResponseEntity<List<Map<String, Object>>> get3MonthVehicleTripsAndProfit() {
+//	    List<Map<String, Object>> response = tripDetailsService.get3MonthVehicleTripsAndProfit();
+//	    return ResponseEntity.ok()
+//	            .headers(ResponseHeaderUtility.HttpHeadersConfig())
+//	            .body(response);
+//	}
+
+	@GetMapping("/getTotalDriverTripsAndSalary")
+	@ApiOperation(value = "Get Total Vehicle Trips and Profit", notes = "Returns HTTP 200 if successful")
+	public ResponseEntity<List<Map<String, Object>>> getTotalDriverTripsAndSalary(@RequestParam int month,
+			@RequestParam int year) {
+		List<Map<String, Object>> response = tripDetailsService.getTotalDriverTripsAndSalary(month, year);
+		return ResponseEntity.ok().headers(ResponseHeaderUtility.HttpHeadersConfig()).body(response);
 	}
 
 }
